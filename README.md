@@ -72,3 +72,5 @@ python scripts/05_generate_gradcam.py --image_path <path> --model_path <model>
 ## License
 
 MIT
+
+## Project Status: Active Development
