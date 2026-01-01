@@ -35,3 +35,4 @@ wandb/
 # Temp
 *.tmp
 .cache/
+*.weights
