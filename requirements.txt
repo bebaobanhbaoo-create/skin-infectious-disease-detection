@@ -27,3 +27,4 @@ optuna
 black
 isort
 pre-commit
+torch>=2.0.0
