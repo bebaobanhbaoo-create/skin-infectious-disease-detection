@@ -9,3 +9,5 @@ def get_logger(name: str, level=logging.INFO):
     handler.setFormatter(formatter)
     logger.addHandler(handler)
     return logger
+
+# Support file logging
