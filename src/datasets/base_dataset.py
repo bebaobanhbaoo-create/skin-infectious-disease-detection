@@ -17,3 +17,6 @@ class BaseImageDataset(Dataset):
         if self.transform:
             image = self.transform(image)
         return image, label
+
+    def get_labels(self):
+        return [s[1] for s in self.samples]
