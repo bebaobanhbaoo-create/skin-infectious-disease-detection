@@ -17,3 +17,6 @@ class SkinDiseaseDataset(BaseImageDataset):
                     self.samples.append((str(img_path), label))
         for img_path in class_dir.glob('*.png'):
             self.samples.append((str(img_path), label))
+
+    def get_class_weights(self):
+        pass
