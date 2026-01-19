@@ -20,3 +20,6 @@ class SimCLRDataset(Dataset):
         view2 = self.transform(image)
 
         return view1, view2
+
+    def set_transform(self, transform):
+        self.transform = transform
