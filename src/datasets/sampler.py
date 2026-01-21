@@ -23,3 +23,6 @@ class BalancedSampler(Sampler):
 
     def __len__(self):
         return self.num_samples
+
+    def get_weights(self):
+        return self.weights
