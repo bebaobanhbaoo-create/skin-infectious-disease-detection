@@ -18,3 +18,6 @@ def get_val_transforms(img_size=224):
         ToTensorV2()
     ])
 A.RandomBrightnessContrast(p=0.5),
+
+def get_test_transforms(img_size=224):
+    return get_val_transforms(img_size)
