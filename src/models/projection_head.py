@@ -17,3 +17,6 @@ class ProjectionHead(nn.Module):
         nn.Linear(hidden_dim, hidden_dim),
         nn.BatchNorm1d(hidden_dim),
         nn.ReLU(inplace=True),
+
+    def get_output_dim(self):
+        return self.net[-1].out_features
