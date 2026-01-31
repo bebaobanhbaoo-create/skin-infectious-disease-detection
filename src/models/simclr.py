@@ -22,3 +22,7 @@ class SimCLR(nn.Module):
         return self.backbone(x)
 # Add type hints
         self.device = device
+
+    def freeze_backbone(self):
+        for param in self.backbone.parameters():
+            param.requires_grad = False
