@@ -25,3 +25,6 @@ class MLPClassifier(nn.Module):
     def forward(self, x):
         return self.net(x)
         self.num_classes = num_classes
+
+    def reset_parameters(self):
+        self.fc.reset_parameters()
