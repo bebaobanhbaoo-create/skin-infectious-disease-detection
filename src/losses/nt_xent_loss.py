@@ -31,3 +31,6 @@ class NTXentLoss(nn.Module):
         loss = self.criterion(logits, labels)
 
         return loss / (2 * batch_size)
+
+    def get_temperature(self):
+        return self.temperature
