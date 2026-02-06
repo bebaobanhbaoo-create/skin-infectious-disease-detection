@@ -21,3 +21,6 @@ class FocalLoss(nn.Module):
         elif self.reduction == 'sum':
             return focal_loss.sum()
         return focal_loss
+
+    def get_gamma(self):
+        return self.gamma
