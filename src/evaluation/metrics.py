@@ -32,3 +32,34 @@ def get_confusion_matrix(y_true, y_pred, normalize=True):
     if normalize:
         cm = cm.astype('float') / cm.sum(axis=1, keepdims=True)
     return cm
+
+def get_all_metrics():
+    """Return list of all available evaluation metrics."""
+    return ['accuracy', 'precision', 'recall', 'f1', 'auc', 'specificity']
+
+def compute_specificity(y_true, y_pred):
+    """Calculate specificity (true negative rate)."""
+    from sklearn.metrics import confusion_matrix
+    cm = confusion_matrix(y_true, y_pred)
+    tn = cm[0, 0]
+    fp = cm[0, 1]
+    return tn / (tn + fp) if (tn + fp) > 0 else 0.0
+
+def compute_balanced_accuracy(y_true, y_pred):
+    """Calculate balanced accuracy for imbalanced datasets."""
+    from sklearn.metrics import balanced_accuracy_score
+    return balanced_accuracy_score(y_true, y_pred)
+
+def aggregate_metrics(metrics_list):
+    """Aggregate metrics across multiple folds or runs."""
+    import numpy as np
+    aggregated = {}
+    for key in metrics_list[0].keys():
+        values = [m[key] for m in metrics_list]
+        aggregated[key] = {
+            'mean': np.mean(values),
+            'std': np.std(values),
+            'min': np.min(values),
+            'max': np.max(values)
+        }
+    return aggregated
