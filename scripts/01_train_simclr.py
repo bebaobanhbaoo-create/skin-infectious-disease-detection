@@ -49,3 +49,51 @@ if __name__ == '__main__':
     scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=args.epochs)
 import wandb
     logger.info(f'Device: {device}')
+
+# Enable gradient checkpointing for memory efficiency
+def enable_gradient_checkpointing(model):
+    """Enable gradient checkpointing to reduce memory usage."""
+    if hasattr(model.backbone, 'set_grad_checkpointing'):
+        model.backbone.set_grad_checkpointing(True)
+        print("Gradient checkpointing enabled")
+    else:
+        print("Warning: Model does not support gradient checkpointing")
+
+def train_with_amp(model, dataloader, criterion, optimizer, scaler, device):
+    """Training loop with automatic mixed precision."""
+    model.train()
+    total_loss = 0
+    
+    for batch_idx, (view1, view2) in enumerate(dataloader):
+        view1, view2 = view1.to(device), view2.to(device)
+        
+        optimizer.zero_grad()
+        
+        with torch.cuda.amp.autocast():
+            z1 = model(view1)
+            z2 = model(view2)
+            loss = criterion(z1, z2)
+        
+        scaler.scale(loss).backward()
+        scaler.unscale_(optimizer)
+        torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0)
+        scaler.step(optimizer)
+        scaler.update()
+        
+        total_loss += loss.item()
+        
+        if batch_idx % 100 == 0:
+            print(f"Batch {batch_idx}: Loss = {loss.item():.4f}")
+    
+    return total_loss / len(dataloader)
+
+def save_training_state(model, optimizer, scheduler, epoch, loss, path):
+    """Save complete training state for resumption."""
+    torch.save({
+        'epoch': epoch,
+        'model_state_dict': model.state_dict(),
+        'optimizer_state_dict': optimizer.state_dict(),
+        'scheduler_state_dict': scheduler.state_dict() if scheduler else None,
+        'loss': loss,
+    }, path)
+    print(f"Saved checkpoint to {path}")
