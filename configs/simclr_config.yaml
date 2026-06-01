@@ -17,3 +17,21 @@ seed: 42
   warmup_epochs: 10
   mixed_precision: true
   gradient_clip: 1.0
+
+# Hyperparameter tuning notes:
+# - Temperature 0.5 works best for medical images
+# - Batch size 256 is optimal, reduce if OOM
+# - Learning rate 3e-4 with cosine annealing
+# - 200 epochs for convergence, early stopping at 20
+
+augmentation:
+  color_jitter_strength: 0.8
+  gaussian_blur_prob: 0.5
+  random_crop_scale: [0.2, 1.0]
+  use_grayscale: false
+
+optimization:
+  use_lars: false
+  warmup_epochs: 10
+  min_lr: 1e-6
+  gradient_clip: 1.0
