@@ -34,3 +34,42 @@ class NTXentLoss(nn.Module):
 
     def get_temperature(self):
         return self.temperature
+
+    def set_temperature(self, temp):
+        """Update temperature scaling parameter."""
+        self.temperature = temp
+    
+    def get_temperature(self):
+        """Get current temperature value."""
+        return self.temperature
+
+class TemperatureScheduledNTXent(NTXentLoss):
+    """NT-Xent loss with temperature annealing."""
+    
+    def __init__(self, initial_temp=1.0, final_temp=0.1, batch_size=256):
+        super().__init__(initial_temp, batch_size)
+        self.initial_temp = initial_temp
+        self.final_temp = final_temp
+        self.current_epoch = 0
+        self.total_epochs = 100
+    
+    def update_temperature(self, epoch, total_epochs=None):
+        """Anneal temperature based on training progress."""
+        if total_epochs:
+            self.total_epochs = total_epochs
+        self.current_epoch = epoch
+        
+        # Cosine annealing
+        progress = epoch / self.total_epochs
+        cos_progress = (1 + np.cos(np.pi * progress)) / 2
+        self.temperature = self.final_temp + (self.initial_temp - self.final_temp) * cos_progress
+        return self.temperature
+    
+    def get_schedule_info(self):
+        """Get temperature scheduling information."""
+        return {
+            'initial': self.initial_temp,
+            'final': self.final_temp,
+            'current': self.temperature,
+            'epoch': self.current_epoch
+        }
