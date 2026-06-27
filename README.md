@@ -74,3 +74,26 @@ python scripts/05_generate_gradcam.py --image_path <path> --model_path <model>
 MIT
 
 ## Project Status: Active Development
+
+## Acknowledgments
+
+This project builds upon several excellent open-source libraries and research:
+
+- **SimCLR**: Self-supervised contrastive learning framework by Google Research
+- **PyTorch**: Deep learning framework by Meta AI Research
+- **timm**: PyTorch Image Models by Ross Wightman
+- **albumentations**: Fast image augmentation library
+- **Grad-CAM**: Visual explanations from deep networks
+
+### Medical Imaging Datasets
+
+We thank the providers of the following datasets:
+- DermNet: Comprehensive dermatology image database
+- ISIC Archive: International Skin Imaging Collaboration
+- HAM10000: Human Against Machine dataset
+
+### Research Papers
+
+- Chen et al., "A Simple Framework for Contrastive Learning of Visual Representations"
+- Selvaraju et al., "Grad-CAM: Visual Explanations from Deep Networks"
+- Lin et al., "Focal Loss for Dense Object Detection"
