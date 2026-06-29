@@ -29,3 +29,7 @@ isort
 pre-commit
 torch>=2.0.0
 torchvision>=0.15.0
+einops>=0.6.0
+grad-cam>=1.4.0
+captum>=0.6.0
+shap>=0.41.0
