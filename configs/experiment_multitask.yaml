@@ -1,0 +1,19 @@
+experiment_name: multitask_simclr
+description: SimCLR + Multi-task learning (pathogen + disease)
+
+pretraining:
+  method: simclr
+  backbone: resnet50
+  epochs: 200
+
+finetuning:
+  method: multitask
+  num_pathogens: 3
+  num_diseases: 10
+  pathogen_weight: 1.0
+  disease_weight: 1.0
+  epochs: 50
+  batch_size: 32
+  lr: 1e-3
+
+seed: 42

@@ -1,0 +1,16 @@
+model:
+  backbone: resnet50
+  num_classes: 10
+  pretrained_path: checkpoints/simclr_best.pth
+
+training:
+  batch_size: 64
+  epochs: 50
+  lr: 1e-3
+  weight_decay: 1e-4
+
+data:
+  img_size: 224
+  num_workers: 4
+
+seed: 42

@@ -1,0 +1,21 @@
+experiment_name: simclr_pretrain
+description: SimCLR self-supervised pretraining + fine-tuning
+
+pretraining:
+  method: simclr
+  backbone: resnet50
+  epochs: 200
+  batch_size: 256
+  temperature: 0.5
+  lr: 3e-4
+
+finetuning:
+  epochs: 50
+  batch_size: 32
+  lr: 1e-3
+  freeze_backbone: false
+
+data:
+  img_size: 224
+
+seed: 42

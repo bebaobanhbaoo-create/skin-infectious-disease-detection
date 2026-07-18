@@ -1,0 +1,43 @@
+
+data_dir: data/simclr_pretrain/all
+
+image_size: 224
+
+backbone: resnet50
+pretrained: none
+
+projection_dim: 128
+hidden_dim: 512
+
+batch_size: 32
+num_epochs: 300
+learning_rate: 0.0003
+weight_decay: 0.0001
+temperature: 0.5
+early_stopping: true
+early_stopping_patience: 10
+early_stopping_min_delta: 0.001
+best_checkpoint_interval: 20
+gpu_temp_stop: true
+gpu_temp_threshold_c: 83
+gpu_temp_check_interval: 10
+gpu_temp_consecutive_hits: 5
+
+num_workers: 4
+device: cuda
+seed: 42
+amp: true
+channels_last: true
+cudnn_benchmark: true
+matmul_precision: high
+persistent_workers: true
+prefetch_factor: 3
+
+checkpoint_dir: checkpoints/simclr/
+log_dir: outputs/logs/
+result_dir: outputs/results/
+figure_dir: outputs/figures/
+augmentation_save_dir: outputs/figures/augmentation_samples/
+
+num_samples: 10
+num_views: 4
